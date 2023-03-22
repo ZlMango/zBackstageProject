@@ -115,12 +115,12 @@ const disabled = ref(false)
 const addProductShow = ref(false)
 //  size-change 事件，分页组件选择每一页显示数据量时，触发该事件
 const handleSizeChange = (val) => {
-		console.log(val)
-		console.log(`${val} items per page`)
+		// //(val)
+		// //(`${val} items per page`)
 }
 // current-change 事件，分页组件的页码值发生切换时，触发该事件
 const handleCurrentChange = (val) => {
-		console.log(`current page: ${val}`)
+		// //(`current page: ${val}`)
 }
 const empty = ref(false)
 
@@ -130,14 +130,11 @@ onMounted(() => {
 				res.data.map(item => {
 						tableData.push(item)
 				})
-				console.log(res)
 				total.value = res.data.length
 		})
 })
 
 const goTo = (scWebUrl) => {
-		
-		console.log(scWebUrl)
 		window.location.href = scWebUrl;
 }
 
@@ -148,7 +145,6 @@ const init = () => {
 				res.data.map(item => {
 						tableData.push(item)
 				})
-				console.log(res)
 				total.value = res.data.length
 		})
 		editStaffShow.value = false
@@ -162,20 +158,16 @@ let editData = reactive({})
 // 编辑
 const handleEditStaff = (e) => {
 		editData = {...e}
-		console.log(e, 111)
-		console.log(editData, 'editData')
 		editStaffShow.value = true
 }
 const scId = ref('')
 // 删除
 const handleDelete = (index) => {
 		scId.value = index.scId
-		console.log(index, scId.value)
 }
 // 确定删除
 const confirmDelete = () => {
 		delSC({scId: scId.value}).then(res => {
-				console.log(res)
 				init()
 		})
 }
@@ -197,13 +189,11 @@ const newlyAdded = () => {
 const addScId = ref('')
 // 添加产品
 const increaseProduct = (index) => {
-		console.log(index)
 		addScId.value = index
 		addProductShow.value = true
 }
 // 查看产品列表
 const ProductList = (scId) => {
-		console.log(scId, 'scId')
 		localStorage.setItem('scId', scId)
 		router.replace('/ProductManagement')
 }

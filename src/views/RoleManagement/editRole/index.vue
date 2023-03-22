@@ -58,27 +58,21 @@ onUpdated(() => {
 		currentPage.value = props.currentPage
 		if (tableData.rPower) {
 				for (let i = 0; i < tableData.rPower.length; i++) {
-						console.log(tableData.rPower[i])
 						if (tableData.rPower[i] !== ',') {
 								checked.value.push(tableData.rPower[i])
 						}
 				}
-				console.log(checked.value)
 		} else {
 				checked.value = []
 		}
 })
 const changeChecked = () => {
-		// checked.value = tableData.rPower.split('')
-		console.log(checked.value)
 		tableData.rPower = checked.value.toString()
-		console.log(tableData.rPower)
 }
 
 
 // 确定编辑
 const handleClick = () => {
-		console.log(tableData, 'tableData')
 		editRoles({rId: tableData.rId, rName: tableData.rName, rPower: tableData.rPower}).then(res => {
 				emit('handleClick')
 		})

@@ -91,7 +91,6 @@ onMounted(() => {
 				res.data.map(item => {
 						rolesData.push(item)
 				})
-				console.log(res)
 		})
 		getAllDept().then(res => {
 				res.data.map(item => {
@@ -107,8 +106,6 @@ onUpdated(() => {
 		tableData.uPower = props.editData.uPower
 		tableData.rId = props.editData.rId
 		tableData.dId = props.editData.dId
-		console.log(tableData.rId)
-		console.log(tableData.dId)
 		// getAllRoles().then(res => {
 		// 		res.data.map(item => {
 		// 				if (item.rId === props.editData.rId){
@@ -124,16 +121,12 @@ onUpdated(() => {
 		// 		})
 		// })
 		currentPage.value = props.currentPage
-		console.log(checked.value)
-		console.log(tableData)
 		if (tableData.uPower) {
 				for (let i = 0; i < tableData.uPower.length; i++) {
-						console.log(tableData.uPower[i])
 						if (tableData.uPower[i] !== ',') {
 								checked.value.push(tableData.uPower[i])
 						}
 				}
-				console.log(checked.value)
 		} else {
 				checked.value = []
 		}
@@ -146,27 +139,19 @@ const changeName = (index) => {
 						}
 						rolesData.push(item)
 				})
-				console.log(res)
 		})
 		tableData.rId = index
-		// tableData.uPower = index
-		// checked.value = index.split(',')
-		console.log(index)
 }
 const changeDeptName = (changeDept) => {
 		
 		tableData.dId = changeDept
-		console.log(changeDept)
 }
 const changeChecked = () => {
-		console.log(checked.value)
 		tableData.uPower = checked.value.toString()
-		console.log(tableData.uPower)
 }
 
 // 确定编辑
 const handleClick = () => {
-		console.log(tableData, 'tableData')
 		editUsers({
 				uId: tableData.uId,
 				uName: tableData.uName,

@@ -403,7 +403,7 @@ export default{
 										this.tableData[i].scLogo=`http://localhost:9999/api/upload/${v.scLogo}`
 								})
 								
-								console.log(789,this.tableData);
+								//(789,this.tableData);
 						});
 						getAllUsers(this.queryParams).then((res)=>{
 								this.optionsuName=res;
@@ -489,7 +489,7 @@ export default{
 				},
 				//删除子公司数据
 				deleteDate(row) {
-						console.log(row.scId);
+						//(row.scId);
 						this.$confirm('是否确认删除名称为"' + row.scId + '"的数据项?', "警告", {
 								confirmButtonText: "确定",
 								cancelButtonText: "取消",
@@ -503,12 +503,12 @@ export default{
 										this.msgSuccess("删除成功");
 								})
 								.catch((err) => {
-										console.log(err);
+										//(err);
 								});
 				},
 				//删除产品数据
 				deleteDateProduct(row) {
-						console.log(row.pId);
+						//(row.pId);
 						this.$confirm('是否确认删除名称为"' + row.pId + '"的数据项?', "警告", {
 								confirmButtonText: "确定",
 								cancelButtonText: "取消",
@@ -522,16 +522,16 @@ export default{
 										this.msgSuccess("删除成功");
 								})
 								.catch((err) => {
-										console.log(err);
+										//(err);
 								});
 				},
 				
 				beforeAvatarUpload(file){ //上传
 						this.multfileImg = file; //拿到文件的图片列表
 						this.inserForm.file = file;
-						console.log("-------")
-						console.log(file)
-						console.log("-------")
+						//("-------")
+						//(file)
+						//("-------")
 				},
 				handlePreview(){},
 				handleRemove(){}, //删除

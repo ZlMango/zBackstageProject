@@ -46,17 +46,17 @@ const powerData = JSON.parse(localStorage.getItem('powerData'))
 const menuPower = ref([])
 const router = useRouter()
 onMounted(() => {
-		defaultActive.value = 'EmployeeManagement'
-		console.log(powerData)
+		if (defaultActive.value !== 'EmployeeManagement' && localStorage.getItem('defaultActive')){
+				defaultActive.value = localStorage.getItem('defaultActive').split('').filter(item => item !== '/').toString().split(',').join("")
+		}else{
+				defaultActive.value = 'EmployeeManagement'
+		}
 		powerData.map(item => {
 				if (item !== ',') {
 						menuPower.value.push(item)
 				}
 		})
-		console.log(menuPower.value)
 		getAllMenuItems().then(res => {
-				console.log(res.data)
-				console.log(menuPower.value)
 				res.data.map(item => {
 						menuPower.value.map(items => {
 								if (item.nId === items) {
@@ -70,7 +70,7 @@ onMounted(() => {
 })
 
 const handleClick = () => {
-		console.log(menuData)
+
 }
 const getMenuIndex = (e) => {
 		router.replace(`/${e.index}`)

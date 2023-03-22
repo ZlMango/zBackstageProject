@@ -76,28 +76,25 @@ const queryInfo = reactive({
 
 // 点击文件列表中已上传的文件时的钩子
 const handlePreview = (e) => {
-		console.log(e, '点击文件列表中已上传的文件时的钩子')
+
 }
 // 文件列表移除文件时的钩子
 const handleRemove = (e) => {
-		console.log(e, '文件列表移除文件时的钩子')
+
 }
 
 // 上传文件之前的钩子，参数为上传的文件， 若返回false或者返回 Promise 且被 reject，则停止上传
 const beforeAvatarUpload = (rawFile) => {
 		imgFile.value = rawFile
 		tableData.file = rawFile
-		console.log(rawFile, '上传文件之前的钩子')
 		return true
 }
 // 文件上传成功的钩子
 const handleAvatarSuccess = (response, uploadFile) => {
-		console.log(uploadFile, '文件上传成功的钩子')
 		imageUrl.value = URL.createObjectURL(uploadFile.raw)
 }
 onMounted(() => {
 		getAllUserData({page: queryInfo.currentPage}).then(res => {
-				console.log(res.data, 'res.data')
 				res.data.map(item => {
 						if (res.data.length === 10) {
 								getAllUserData({page: queryInfo.currentPage += 1}).then(data => {
@@ -115,7 +112,6 @@ onUpdated(() => {
 		if (props.addScId) {
 				tableData.scId = props.addScId.scId
 				scName.value = props.addScId.scName
-				console.log(tableData.scId, 'tableData.scId')
 		}
 })
 const EmptyData = () => {
@@ -129,7 +125,6 @@ const handleClick = (e) => {
 		if (tableData.pName === '' || tableData.pFalg === '' || tableData.pPrice === '' || tableData.pInfo === '') {
 				EmptyData()
 		} else {
-				console.log(currentPage.value)
 				let url = "http://localhost:9999/api/sonCom/getPic.php"
 				let FormData = require("form-data"); //导入上传控件
 				const fd = new FormData() // 声明formData数据类型
@@ -140,11 +135,7 @@ const handleClick = (e) => {
 				fd.append('pInfo', tableData.pInfo)
 				fd.append('scId', tableData.scId)
 				fd.append('file', imgFile.value)
-				console.log(tableData)
-				console.log(imgFile.value)
-				console.log(FormData)
 				addProduct(fd).then((res) => {
-						console.log(res)
 						emit('handleClick')
 						tableData.pName = ''
 						tableData.pFalg = ''

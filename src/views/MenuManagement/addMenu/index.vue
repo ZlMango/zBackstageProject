@@ -45,12 +45,10 @@ const EmptyData = () => {
 }
 // 添加
 const handleClick = () => {
-		console.log(tableData)
 		if (tableData.nName === '' || tableData.nUrl === '') {
 				EmptyData()
 		} else {
 				addMenuItem(tableData).then(res => {
-						console.log(res, 'res')
 						emit('handleClick')
 						tableData.nName = ''
 						tableData.nUrl = ''

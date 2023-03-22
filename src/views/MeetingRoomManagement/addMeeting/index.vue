@@ -53,7 +53,6 @@ const init = () => {
 		// 页面自动刷新
 		window.location.reload()
 		getAllUserData({page: currentPage.value}).then(res => {
-				console.log(res)
 		})
 }
 const EmptyData = () => {
@@ -64,13 +63,10 @@ const EmptyData = () => {
 }
 // 添加
 const handleClick = () => {
-		console.log(tableData)
 		if (tableData.oNum === '' || tableData.oName === '' || tableData.oTel === '' || tableData.oInfo === '') {
 				EmptyData()
 		} else {
-				console.log(currentPage.value)
 				addOffice(tableData).then(res => {
-						console.log(res)
 						emit('handleClick')
 						tableData.oNum = ''
 						tableData.oName = ''

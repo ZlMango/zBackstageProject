@@ -111,13 +111,11 @@ const queryInfo = reactive({
 const disabled = ref(false)
 //  size-change 事件，分页组件选择每一页显示数据量时，触发该事件
 const handleSizeChange = (val) => {
-		console.log(val)
 		queryInfo.pageSize = val
 }
 // current-change 事件，分页组件的页码值发生切换时，触发该事件
 const handleCurrentChange = (val) => {
 		queryInfo.pageNum = val
-		console.log(`current page: ${val}`)
 }
 const empty = ref(false)
 onMounted(() => {
@@ -128,7 +126,6 @@ let page = ref(1)
 const init = () => {
 		tableData.length = 0
 		getAllOffice({page: queryInfo.pageNum}).then(res => {
-				console.log(res.data)
 				res.data.map(item => {
 						if (res.data.length === 5) {
 								getAllOffice({page: queryInfo.pageNum += 1}).then(officeData => {
@@ -149,20 +146,16 @@ let editData = reactive({})
 // 编辑
 const handleEditStaff = (e) => {
 		editData = {...e}
-		console.log(e, 111)
-		console.log(editData, 'editData')
 		editStaffShow.value = true
 }
 const oId = ref('')
 // 删除
 const handleDelete = (index) => {
 		oId.value = index.oId
-		console.log(index, oId.value)
 }
 // 确定删除
 const confirmDelete = () => {
 		delOffice({oId: oId.value}).then(res => {
-				console.log(res)
 				init()
 		})
 }

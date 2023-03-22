@@ -82,17 +82,14 @@ onMounted(() => {
 const beforeAvatarUpload = (rawFile) => {
 		imgFile.value = rawFile
 		tableData.rImg = rawFile
-		console.log(rawFile, '上传文件之前的钩子')
 		return true
 }
 // 文件上传成功的钩子
 const handleAvatarSuccess = (response, uploadFile) => {
-		console.log(uploadFile, '文件上传成功的钩子')
 		imageUrl.value = URL.createObjectURL(uploadFile.raw)
 }
 // 文件列表移除文件时的钩子
 const removeImage = (file, rawFile) => {
-		console.log(file, '文件列表移除文件时的钩子')
 		URL.revokeObjectURL(imageUrl.value)
 }
 // 定义初始化方法
@@ -100,7 +97,6 @@ const init = () => {
 		// 页面自动刷新
 		window.location.reload()
 		getAllUserData({page: currentPage.value}).then(res => {
-				console.log(res)
 		})
 }
 const EmptyData = () => {
@@ -111,18 +107,15 @@ const EmptyData = () => {
 }
 // 添加
 const handleClick = () => {
-		console.log(tableData)
 		if (tableData.rTitle === '' || tableData.rContent === '' || tableData.rImg === '') {
 				EmptyData()
 		} else {
-				console.log(currentPage.value)
 				let FormData = require("form-data"); //导入上传控件
 				const fd = new FormData()
 				fd.append('rImg', tableData.rImg)
 				fd.append('rTitle', tableData.rTitle)
 				fd.append('rContent', tableData.rContent)
 				addRegu(fd).then(res => {
-						console.log(res)
 						emit('handleClick')
 						tableData.rTitle = ''
 						tableData.rContent = ''

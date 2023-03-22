@@ -85,17 +85,17 @@ const imageUrl = ref('')
 const beforeAvatarUpload = (rawFile) => {
 		imgFile.value = rawFile
 		tableData.file = rawFile
-		console.log(rawFile, '上传文件之前的钩子')
+		//(rawFile, '上传文件之前的钩子')
 		return true
 }
 // 文件上传成功的钩子
 const handleAvatarSuccess = (response, uploadFile) => {
-		console.log(uploadFile, '文件上传成功的钩子')
+		//(uploadFile, '文件上传成功的钩子')
 		imageUrl.value = URL.createObjectURL(uploadFile.raw)
 }
 onUpdated(() => {
 		getAllUserData({page: queryInfo.currentPage}).then(res => {
-				console.log(res.data, 'res.data')
+				//(res.data, 'res.data')
 				res.data.map(item => {
 						if (res.data.length === 10) {
 								getAllUserData({page: queryInfo.currentPage += 1}).then(data => {
@@ -119,7 +119,7 @@ onUpdated(() => {
 })
 const changeName = (index) => {
 		tableData.uId = index
-		console.log(index)
+		//(index)
 }
 // 确定编辑
 const handleClick = () => {
@@ -130,15 +130,15 @@ const handleClick = () => {
 		fd.append('scMan', tableData.scMan)
 		fd.append('scTel', tableData.scTel)
 		fd.append('scWebUrl', tableData.scWebUrl)
-		console.log(props.editData.scLogo)
+		//(props.editData.scLogo)
 		if (imgFile.value !== props.editData.scLogo) {
 				fd.append('file', imgFile.value)
 		} else {
 				fd.append('file', props.editData.scLogo)
 		}
-		console.log(tableData, 'tableData')
+		//(tableData, 'tableData')
 		updateSC({scId: tableData.scId}, fd).then(res => {
-				console.log(res, 1111111111)
+				//(res, 1111111111)
 				if (res.data === 1) {
 						emit('handleClick')
 				}

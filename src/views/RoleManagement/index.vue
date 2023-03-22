@@ -94,12 +94,10 @@ const disabled = ref(false)
 //  size-change 事件，分页组件选择每一页显示数据量时，触发该事件
 const handleSizeChange = (val) => {
 		queryInfo.pageSize = val
-		console.log(queryInfo.pageSize)
 }
 // current-change 事件，分页组件的页码值发生切换时，触发该事件
 const handleCurrentChange = (pageNum) => {
 		queryInfo.currentPage = pageNum
-		console.log(`current page: ${pageNum}`)
 }
 const empty = ref(false)
 const nextPage = ref(0)
@@ -108,18 +106,15 @@ const power = reactive([])
 
 onMounted(() => {
 		getAllMenuItems().then(resData => {
-				console.log(resData.data)
 				resData.data.map(item => {
 						power.push(item.nName)
 				})
-				console.log(power)
 		})
 		getAllRoles().then(res => {
 				res.data.map(item => {
 						tableData.push(item)
 				})
 				queryInfo.currentPage = 1
-				console.log(res)
 		})
 })
 
@@ -132,7 +127,6 @@ const init = () => {
 						tableData.push(item)
 				})
 				total.value = res.data.length
-				console.log(res)
 		})
 }
 let editRolesShow = ref(false)
@@ -142,20 +136,16 @@ let editData = reactive({})
 // 编辑
 const handleEditStaff = (e) => {
 		editData = {...e}
-		console.log(e, 111)
-		console.log(editData, 'editData')
 		editRolesShow.value = true
 }
 const rId = ref('')
 // 删除
 const handleDelete = (index) => {
 		rId.value = index.rId
-		console.log(index, rId.value)
 }
 // 确定删除
 const confirmDelete = () => {
 		deleteRoles({rId: rId.value}).then(res => {
-				console.log(res)
 				init()
 		})
 }
@@ -163,7 +153,6 @@ const confirmDelete = () => {
 const createClose = () => {
 		editData = {}
 		init()
-		console.log(editData)
 		editRolesShow.value = false
 		addRolesShow.value = false
 }

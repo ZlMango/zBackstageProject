@@ -41,7 +41,6 @@ let tableData = reactive({})
 const init = () => {
 		window.location.reload()
 		getAllMenuItems().then(res => {
-				console.log(res)
 		})
 }
 onUpdated(() => {
@@ -50,7 +49,6 @@ onUpdated(() => {
 		level.value = props.editMenuData.level
 		url.value = props.editMenuData.url
 		tableData = {...props.editMenuData}
-		console.log(tableData)
 })
 
 
@@ -63,7 +61,6 @@ const handleClick = () => {
 				nUrl: url.value
 		}).then(res => {
 				init()
-				console.log(res, 'res')
 		})
 }
 // 取消

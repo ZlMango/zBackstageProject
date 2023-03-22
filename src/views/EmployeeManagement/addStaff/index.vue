@@ -94,7 +94,6 @@ onMounted(() => {
 				res.data.map(item => {
 						rolesData.push(item)
 				})
-				console.log(res)
 		})
 		getAllDept().then(res => {
 				res.data.map(item => {
@@ -104,15 +103,12 @@ onMounted(() => {
 		currentPage.value = props.currentPage
 })
 onUpdated(() => {
-		console.log(rolesData)
 		if (tableData.uPower) {
 				for (let i = 0; i < tableData.uPower.length; i++) {
-						console.log(tableData.uPower[i])
 						if (tableData.uPower[i] !== ',') {
 								checked.value.push(tableData.uPower[i])
 						}
 				}
-				console.log(checked.value)
 		} else {
 				checked.value = []
 		}
@@ -125,17 +121,12 @@ const changeName = (index) => {
 						}
 						rolesData.push(item)
 				})
-				console.log(res)
 		})
 		tableData.rId = index
-		// tableData.uPower = index
-		// checked.value = index.split(',')
-		console.log(index)
 }
 const changeDeptName = (changeDept) => {
 		
 		tableData.dId = changeDept
-		console.log(changeDept)
 }
 const EmptyData = () => {
 		ElMessage({
@@ -144,21 +135,15 @@ const EmptyData = () => {
 		})
 }
 const changeChecked = () => {
-		console.log(checked.value)
 		tableData.rId = checked.value.toString()
-		// tableData.uPower = checked.value.toString()
-		console.log(tableData.uPower)
 }
 
 // 添加
 const handleClick = () => {
-		console.log(tableData)
 		if (tableData.uName === '' || tableData.uPwd === '' || tableData.uTel === '') {
 				EmptyData()
 		} else {
-				console.log(currentPage.value)
 				AddUsers(tableData).then(res => {
-						console.log(res)
 						// init()
 						emit('handleClick')
 						tableData.uName = ''

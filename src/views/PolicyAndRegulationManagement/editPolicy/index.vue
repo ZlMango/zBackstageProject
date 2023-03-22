@@ -74,17 +74,14 @@ const imgData = ref([])
 const beforeAvatarUpload = (rawFile) => {
 		imageUrl.value = rawFile
 		tableData.rImg = rawFile
-		console.log(rawFile, '上传文件之前的钩子')
 		return true
 }
 // 文件上传成功的钩子
 const handleAvatarSuccess = (response, uploadFile) => {
-		console.log(uploadFile, '文件上传成功的钩子')
 		imageUrl.value = URL.createObjectURL(uploadFile.raw)
 }
 // 确定编辑
 const handleClick = () => {
-		console.log(tableData, 'tableData')
 		let FormData = require("form-data"); //导入上传控件
 		const fd = new FormData()
 		fd.append('rImg', tableData.rImg)
@@ -92,7 +89,6 @@ const handleClick = () => {
 		fd.append('rTitle', tableData.rTitle)
 		fd.append('rContent', tableData.rContent)
 		updateRegu(fd).then(res => {
-				console.log(res)
 				emit('handleClick')
 		})
 }

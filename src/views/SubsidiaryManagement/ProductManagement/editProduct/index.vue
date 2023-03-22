@@ -68,12 +68,10 @@ const imageUrl = ref('')
 const beforeAvatarUpload = (rawFile) => {
 		imgFile.value = rawFile
 		tableData.file = rawFile
-		console.log(rawFile, '上传文件之前的钩子')
 		return true
 }
 // 文件上传成功的钩子
 const handleAvatarSuccess = (response, uploadFile) => {
-		console.log(uploadFile, '文件上传成功的钩子')
 		imageUrl.value = URL.createObjectURL(uploadFile.raw)
 }
 onMounted(() => {
@@ -94,14 +92,12 @@ const EmptyData = () => {
 }
 const changeName = (index) => {
 		tableData.uId = index
-		console.log(index)
 }
 // 添加
 const handleClick = (e) => {
 		if (tableData.pName === '' || tableData.pFalg === '' || tableData.pInfo === '' || tableData.pPrice === '') {
 				EmptyData()
 		} else {
-				console.log(currentPage.value)
 				let url = "http://localhost:9999/api/sonCom/getPic.php"
 				let FormData = require("form-data"); //导入上传控件
 				const fd = new FormData() // 声明formData数据类型
@@ -110,11 +106,7 @@ const handleClick = (e) => {
 				fd.append('pInfo', tableData.pInfo)
 				fd.append('pPrice', tableData.pPrice)
 				fd.append('file', imgFile.value)
-				console.log(tableData)
-				console.log(imgFile.value)
-				console.log(FormData)
 				editProduct({pId: tableData.pId}, fd).then((res) => {
-						console.log(res)
 						emit('handleClick')
 						tableData.pName = ''
 						tableData.pFalg = ''

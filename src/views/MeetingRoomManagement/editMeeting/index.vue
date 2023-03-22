@@ -59,7 +59,6 @@ onUpdated(() => {
 
 // 确定编辑
 const handleClick = () => {
-		console.log(tableData, 'tableData')
 		updateOffice({
 				oId: tableData.oId,
 				oNum: tableData.oNum,

@@ -67,20 +67,15 @@ const EmptyData = () => {
 
 
 const changeChecked = () => {
-		console.log(checked.value)
 		tableData.rPower = checked.value.toString()
-		console.log(tableData.rPower)
 }
 
 // 添加
 const handleClick = () => {
-		console.log(tableData)
 		if (tableData.rName === '') {
 				EmptyData()
 		} else {
-				console.log(currentPage.value)
 				addRoles(tableData).then(res => {
-						console.log(res)
 						emit('handleClick')
 						tableData.rName = ''
 						checked.value = []

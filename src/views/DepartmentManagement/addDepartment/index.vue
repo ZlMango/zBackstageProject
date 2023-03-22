@@ -52,12 +52,10 @@ const EmptyData = () => {
 }
 // 添加
 const handleClick = () => {
-		console.log(tableData)
 		if (tableData.dName === '' || tableData.dCount === '' || tableData.dAddr === '') {
 				EmptyData()
 		} else {
 				addDept(tableData).then(res => {
-						console.log(res)
 						tableData.dName = ''
 						tableData.dCount = ''
 						tableData.dAddr = ''

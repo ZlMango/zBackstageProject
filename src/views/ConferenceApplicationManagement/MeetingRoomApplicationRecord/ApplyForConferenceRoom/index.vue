@@ -113,14 +113,12 @@ onMounted(() => {
 						res.data.map(item => {
 								if (item.dId === tableData.users.dId) {
 										tableData.dept = item
-										console.log(tableData.dept)
 										tableData.dId = item.dId
 								}
 						})
 				})
 		}
 		getAllOffice({page: queryInfo.currentPage}).then(res => {
-				console.log(res.data)
 				res.data.map(item => {
 						if (res.data.length === 5) {
 								getAllOffice({page: queryInfo.currentPage += 1}).then(officeData => {
@@ -149,7 +147,6 @@ onUpdated(() => {
 })
 const changeName = (index) => {
 		getAllOffice({page: queryInfo.currentPage}).then(res => {
-				console.log(res.data)
 				res.data.forEach(item => {
 						if (res.data.length === 5) {
 								getAllOffice({page: queryInfo.currentPage += 1}).then(officeData => {
@@ -162,7 +159,6 @@ const changeName = (index) => {
 				})
 		})
 		tableData.oId = index
-		console.log(tableData.oId)
 }
 // 定义初始化方法
 const init = () => {
@@ -178,11 +174,9 @@ const EmptyData = () => {
 }
 // 添加
 const handleClick = () => {
-		console.log(tableData)
 		if (tableData.startTime === '' || tableData.endTime === '' || tableData.uId === '' || tableData.dId === '') {
 				EmptyData()
 		} else {
-				console.log(currentPage.value)
 				checkOffice({
 						oId: tableData.oId,
 						startTime: tableData.startTime,
@@ -192,7 +186,6 @@ const handleClick = () => {
 						uIdStr: tableData.uIdStr,
 						status: tableData.status
 				}).then(res => {
-						console.log(res)
 						emit('handleClick')
 						tableData.oId = ''
 						tableData.startTime = ''

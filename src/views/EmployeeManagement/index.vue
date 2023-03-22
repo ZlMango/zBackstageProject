@@ -93,12 +93,10 @@ const disabled = ref(false)
 //  size-change 事件，分页组件选择每一页显示数据量时，触发该事件
 const handleSizeChange = (val) => {
 		queryInfo.pageSize = val
-		console.log(queryInfo.pageSize)
 }
 // current-change 事件，分页组件的页码值发生切换时，触发该事件
 const handleCurrentChange = (pageNum) => {
 		queryInfo.currentPage = pageNum
-		console.log(`current page: ${pageNum}`)
 }
 const empty = ref(false)
 onMounted(() => {
@@ -135,20 +133,16 @@ let editData = reactive({})
 // 编辑
 const handleEditStaff = (e) => {
 		editData = {...e}
-		console.log(e, 111)
-		console.log(editData, 'editData')
 		editStaffShow.value = true
 }
 const uId = ref('')
 // 删除
 const handleDelete = (index) => {
 		uId.value = index.uId
-		console.log(index, uId.value)
 }
 // 确定删除
 const confirmDelete = () => {
 		deleteUsers({uId: uId.value}).then(res => {
-				console.log(res)
 				init()
 		})
 }
@@ -167,6 +161,7 @@ const newlyAdded = () => {
 const handleCancel = () => {
 		editStaffShow.value = false
 		addStaffShow.value = false
+		//(1111)
 }
 </script>
 

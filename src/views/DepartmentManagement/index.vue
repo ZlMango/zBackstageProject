@@ -98,12 +98,10 @@ const disabled = ref(false)
 //  size-change 事件，分页组件选择每一页显示数据量时，触发该事件
 const handleSizeChange = (val) => {
 		queryInfo.pageSize = val
-		console.log(queryInfo.pageSize)
 }
 // current-change 事件，分页组件的页码值发生切换时，触发该事件
 const handleCurrentChange = (pageNum) => {
 		queryInfo.currentPage = pageNum
-		console.log(`current page: ${pageNum}`)
 }
 const empty = ref(false)
 onMounted(() => {
@@ -130,7 +128,6 @@ const init = () => {
 						tableData.push(item)
 				})
 				total.value = res.data.length
-				console.log(res)
 		})
 }
 let editStaffShow = ref(false)
@@ -140,20 +137,16 @@ let editData = reactive({})
 // 编辑
 const handleEditStaff = (e) => {
 		editData = {...e}
-		console.log(e, 111)
-		console.log(editData, 'editData')
 		editStaffShow.value = true
 }
 const dId = ref('')
 // 删除
 const handleDelete = (index) => {
 		dId.value = index.dId
-		console.log(index, dId.value)
 }
 // 确定删除
 const confirmDelete = () => {
 		deleteDept({dId: dId.value}).then(res => {
-				console.log(res)
 				init()
 		})
 }
@@ -161,7 +154,6 @@ const confirmDelete = () => {
 const createClose = () => {
 		editData = {}
 		init()
-		console.log(editData)
 		editStaffShow.value = false
 		addStaffShow.value = false
 }

@@ -95,12 +95,10 @@ const background = ref(false)
 //  size-change 事件，分页组件选择每一页显示数据量时，触发该事件
 const handleSizeChange = (val) => {
 		queryInfo.pageSize = val
-		console.log(queryInfo.pageSize)
 }
 // current-change 事件，分页组件的页码值发生切换时，触发该事件
 const handleCurrentChange = (pageNum) => {
 		queryInfo.currentPage = pageNum
-		console.log(`current page: ${pageNum}`)
 }
 onMounted(() => {
 		getAllMenuItems().then(res => {
@@ -142,21 +140,17 @@ const handleEdit = (e) => {
 				level: e.nLevel,
 				url: e.nUrl,
 		}
-		console.log(e, 111)
-		console.log(editData, 'editData')
 		editShow.value = !editShow.value
 }
 let nId = ref('')
 // 删除
 const handleDelete = (index) => {
 		nId.value = index.nId
-		console.log(index, nId.value)
 		window.location.reload()
 }
 // 确定删除
 const confirmDelete = () => {
 		deleteMenuItem({nId: nId.value}).then(res => {
-				console.log(res)
 				init()
 		})
 }
@@ -164,7 +158,6 @@ const confirmDelete = () => {
 const createClose = () => {
 		editData = {}
 		init()
-		console.log(editData)
 		editShow.value = false
 		addShow.value = false
 }

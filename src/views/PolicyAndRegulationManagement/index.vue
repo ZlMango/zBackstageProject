@@ -112,13 +112,11 @@ const queryInfo = reactive({
 const disabled = ref(false)
 //  size-change 事件，分页组件选择每一页显示数据量时，触发该事件
 const handleSizeChange = (val) => {
-		console.log(val)
 		queryInfo.pageSize = val
 }
 // current-change 事件，分页组件的页码值发生切换时，触发该事件
 const handleCurrentChange = (val) => {
 		queryInfo.pageNum = val
-		console.log(`current page: ${val}`)
 }
 const empty = ref(false)
 onMounted(() => {
@@ -142,20 +140,16 @@ let editData = reactive({})
 // 编辑
 const handleEditStaff = (e) => {
 		editData = {...e}
-		console.log(e, 111)
-		console.log(editData, 'editData')
 		editPolicyShow.value = true
 }
 const rId = ref('')
 // 删除
 const handleDelete = (index) => {
 		rId.value = index.rId
-		console.log(index, rId.value)
 }
 // 确定删除
 const confirmDelete = () => {
 		delRegu({rId: rId.value}).then(res => {
-				console.log(res)
 				init()
 		})
 }
@@ -165,7 +159,6 @@ const createClose = () => {
 		init()
 		editPolicyShow.value = false
 		addPolicyShow.value = false
-		console.log(111111111111)
 }
 // 新增
 const newlyAdded = () => {

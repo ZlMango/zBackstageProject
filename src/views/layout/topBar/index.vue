@@ -12,7 +12,7 @@
 												/>
 										</div>
 										<div class="SwitchButton">
-												<p class="admin">管理员</p>
+												<p class="admin">{{ uName }}</p>
 												<div>
 														<el-popconfirm
 																title="确定退出登录吗?"
@@ -56,11 +56,17 @@
 import {SwitchButton} from '@element-plus/icons-vue'
 import {useRouter} from 'vue-router'
 import {ElMessage} from 'element-plus'
-import {ref} from 'vue'
-
+import {ref,onMounted} from 'vue'
+import {getOneUsers} from '@/api/user/login'
 const router = useRouter()
 const avatarShow = ref(false)
+const uName = ref('')
 const imageSrc = ref('https://img0.baidu.com/it/u=561032217,3372486445&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500')
+onMounted(() => {
+		getOneUsers({uId:localStorage.getItem('uId')}).then(res => {
+				uName.value = res.data.uName
+		})
+})
 const logOutMessage = () => {
 		ElMessage({
 				message: '您已退出登录',
@@ -68,7 +74,7 @@ const logOutMessage = () => {
 		})
 }
 const confirm = () => {
-		localStorage.removeItem('res')
+		window.localStorage.removeItem('res');
 		window.localStorage.removeItem('uId');
 		window.localStorage.removeItem('defaultActive');
 		window.localStorage.removeItem('powerData');
@@ -85,7 +91,7 @@ const avatar = () => {
 		avatarShow.value = !avatarShow.value
 }
 const cancel = () => {
-		console.log('取消')
+
 }
 
 import {Plus} from '@element-plus/icons-vue'
@@ -101,7 +107,7 @@ const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
 
 const handleRemove = (uploadFile, uploadFiles) => {
-		console.log(uploadFile, uploadFiles)
+
 }
 
 const handlePictureCardPreview = (uploadFile) => {

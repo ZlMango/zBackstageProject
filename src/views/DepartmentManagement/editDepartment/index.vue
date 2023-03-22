@@ -51,7 +51,6 @@ onUpdated(() => {
 
 // 确定编辑
 const handleClick = () => {
-		console.log(tableData, 'tableData')
 		editDept({
 				dId: tableData.dId,
 				dName: tableData.dName,
@@ -60,7 +59,6 @@ const handleClick = () => {
 				uId: tableData.uId
 		}).then(res => {
 				emit('handleClick')
-				console.log(res)
 		})
 }
 // 取消

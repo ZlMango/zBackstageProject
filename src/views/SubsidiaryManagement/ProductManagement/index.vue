@@ -102,12 +102,10 @@ const scId = ref('')
 scId.value = localStorage.getItem('scId')
 //  size-change 事件，分页组件选择每一页显示数据量时，触发该事件
 const handleSizeChange = (val) => {
-		console.log(val)
-		console.log(`${val} items per page`)
 }
 // current-change 事件，分页组件的页码值发生切换时，触发该事件
 const handleCurrentChange = (val) => {
-		console.log(`current page: ${val}`)
+
 }
 const empty = ref(false)
 
@@ -119,7 +117,6 @@ onMounted(() => {
 						res.data.map(item => {
 								tableData.push(item)
 						})
-						console.log(res)
 						total.value = res.data.length
 				})
 		}
@@ -127,8 +124,6 @@ onMounted(() => {
 onUpdated(() => {
 })
 const goTo = (scWebUrl) => {
-		
-		console.log(scWebUrl)
 		window.location.href = scWebUrl;
 }
 
@@ -140,7 +135,6 @@ const init = () => {
 						res.data.map(item => {
 								tableData.push(item)
 						})
-						console.log(res)
 						total.value = res.data.length
 				})
 		}
@@ -150,7 +144,6 @@ let editData = reactive({})
 // 编辑
 const handleEditStaff = (e) => {
 		editData = {...e}
-		console.log(editData, 'editData')
 		editProductShow.value = true
 }
 
@@ -159,12 +152,10 @@ const pId = ref('')
 // 删除
 const handleDelete = (index) => {
 		pId.value = index.pId
-		console.log(index, pId.value)
 }
 // 确定删除
 const confirmDelete = () => {
 		delProduct({pId: pId.value}).then(res => {
-				console.log(res)
 				init()
 		})
 }

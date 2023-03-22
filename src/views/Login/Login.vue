@@ -1,8 +1,8 @@
 <template>
 		<div class="view-background">
 				<div class="loginFont">
-						<div class="logo"></div>
-						<div class="login">融职教育科技有限公司后台管理系统</div>
+<!--						<div class="logo"></div>-->
+						<div class="login">西安市税务局后台管理系统</div>
 				</div>
 				<!--	用户登录		-->
 				<div class="form-box" v-show="showLogin">
@@ -89,10 +89,11 @@ import {reactive, ref, onUpdated, onMounted} from 'vue'
 import {ElMessage} from 'element-plus'
 import {Calendar, User, Hide, Lock, Iphone} from '@element-plus/icons-vue'
 import {useRouter} from 'vue-router'
-import {getAllMenuItems} from '@/api/nav/nav.js'
+import {getAllMenuItems, getPowerNav} from '@/api/nav/nav.js'
 import {getAllRoles, deleteRoles} from '@/api/roles'
 import {login, userRegister} from '@/api/user/login.js'
-
+import {useStore} from 'vuex'
+const store = useStore()
 let showRegister = ref(false)
 const showLogin = ref(true)
 const router = useRouter()
@@ -119,6 +120,7 @@ const powerData = ref([])
 // 用户最终的权限
 const FinalAuthority = ref('')
 onMounted(() => {
+		localStorage.removeItem('defaultActive')
 		getAllMenuItems().then(res => {
 				MenuData.value = res.data
 				res.data.map(item => {
@@ -132,58 +134,28 @@ onMounted(() => {
 				})
 		})
 })
-const changeChecked = () => {
-		console.log(checked.value)
-		usersRegister.uPower = checked.value.toString()
-		console.log(usersRegister.uPower)
+// 从用户登录页面用户点击登录保存本地的用户最终权限的字段取出来
+let str = localStorage.getItem('FinalAuthority')
+const uId = localStorage.getItem('uId')
+// 定义动态路由的方法，在前置路由守卫中调用
+const dynamic = () => {
+		// 获取权限菜单信息参数为用户的最终权限
+		if (str){
+				getPowerNav({str: str}).then(res => {
+						window.localStorage.setItem('res',JSON.stringify(res.data))
+						store.dispatch('setRouter',res.data)
+						store.dispatch('addRouter')
+				})
+		}
 }
-
-onUpdated(() => {
-		// window.location.reload()
-})
-const successMessage = () => {
-		ElMessage({
-				message: '正在登录...',
-				type: 'success',
-		})
-}
-const fillInAccountNumber = () => {
-		ElMessage({
-				message: '请填写用户名',
-				type: 'warning',
-		})
-}
-const accountNumberError = () => {
-		ElMessage({
-				message: '用户名或密码错误',
-				type: 'warning',
-		})
-}
-const accountNumberPasswordError = () => {
-		ElMessage({
-				message: '请填写完整用户信息',
-				type: 'warning',
-		})
-}
-const fillInPassWord = () => {
-		ElMessage({
-				message: '请填写密码',
-				type: 'warning',
-		})
-}
-const RegisterSuccess = () => {
-		ElMessage({
-				message: '注册成功，请登录',
-				type: 'success',
-		})
-}
-
-const RegisterFail = () => {
-		ElMessage({
-				message: '注册失败，请确认用户信息',
-				type: 'warning',
-		})
-}
+const changeChecked = () => usersRegister.uPower = checked.value.toString()
+const successMessage = () => ElMessage({message: '正在登录...', type: 'success',})
+const fillInAccountNumber = () => ElMessage({message: '请填写用户名', type: 'warning',})
+const accountNumberError = () => ElMessage({message: '用户名或密码错误', type: 'warning',})
+const accountNumberPasswordError = () => ElMessage({message: '请填写完整用户信息', type: 'warning',})
+const fillInPassWord = () => ElMessage({message: '请填写密码', type: 'warning',})
+const RegisterSuccess = () => ElMessage({message: '注册成功，请登录', type: 'success',})
+const RegisterFail = () => ElMessage({message: '注册失败，请确认用户信息', type: 'warning',})
 // 登录
 const onSubmit = () => {
 		if (accountNumber.value === '') {
@@ -191,7 +163,7 @@ const onSubmit = () => {
 		} else if (password.value === '') {
 				fillInPassWord()
 		} else {
-				login({uName: accountNumber.value, uPwd: password.value}).then(res => {
+				 login({uName: accountNumber.value, uPwd: password.value}).then(async res => {
 						if (res.data === 2) {
 								accountNumberError()
 						} else {
@@ -199,7 +171,6 @@ const onSubmit = () => {
 								rId.value = res.data.rId
 								const uId = res.data.uId
 								window.localStorage.setItem('uId', uId)
-								console.log(res.data)
 								uPower.value = res.data.uPower
 								rolesId = rolesData.filter(item => item.rId === res.data.rId)
 								rPower.value = rolesId[0].rPower + ',' + uPower.value
@@ -210,9 +181,7 @@ const onSubmit = () => {
 												powerData.value.push(item)
 										}
 								})
-								console.log(powerData._rawValue);
 								FinalAuthority.value = powerData._rawValue.toString();
-								console.log(FinalAuthority.value);
 								localStorage.setItem('FinalAuthority', FinalAuthority.value)
 								localStorage.setItem('powerData', JSON.stringify(powerData._rawValue))
 								setTimeout(() => {
@@ -221,10 +190,10 @@ const onSubmit = () => {
 								}, 2000)
 						}
 						rolesData.value = []
+						await dynamic()
 				})
 		}
 }
-
 // 注册
 const Register = () => {
 		showRegister.value = !showRegister.value
@@ -241,7 +210,6 @@ const registerUser = () => {
 				accountNumberPasswordError()
 		} else {
 				userRegister(usersRegister).then(res => {
-						console.log(res, 1111111)
 						if (res.data === 1) {
 								setTimeout(() => {
 										RegisterSuccess()
@@ -263,7 +231,7 @@ const registerUser = () => {
 		width: 8em;
 		height: 3em;
 		/*border: 1px solid darkred;*/
-		background-image: url('../../../src/assets/logo1.png');
+		/*background-image: url('../../../src/assets/logo1.png');*/
 		background-repeat: no-repeat;
 		background-position: 50%;
 		background-size: 100%;
